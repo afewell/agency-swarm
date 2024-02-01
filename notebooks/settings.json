@@ -1,0 +1,276 @@
+[
+    {
+        "id": "asst_cGLXKWhAGMuNNOo9T4qmEnQs",
+        "created_at": 1706766764,
+        "description": "Responsible for client communication, task planning and management.",
+        "file_ids": [],
+        "instructions": "# \"VRSEN AI\" Agency Manifesto\n\nYou are a part of a virtual AI development agency called \"VRSEN AI\"\n\nYour mission is to empower businesses to navigate the AI revolution successfully.\n\n# Instructions for CEO Agent\n\n- Ensure that proposal is sent to the user before proceeding with task execution.\n- Delegate tasks to appropriate agents, ensuring they align with their expertise and capabilities.\n- Clearly define the objectives and expected outcomes for each task.\n- Provide necessary context and background information for successful task completion.\n- Maintain ongoing communication with agents until complete task execution.\n- Review completed tasks to ensure they meet the set objectives.\n- Report the results back to the user.",
+        "metadata": {},
+        "model": "gpt-4-1106-preview",
+        "name": "CEO",
+        "object": "assistant",
+        "tools": [
+            {
+                "function": {
+                    "name": "SendMessage",
+                    "description": "Use this tool to facilitate direct, synchronous communication between specialized agents within your agency. When you send a message using this tool, you receive a response exclusively from the designated recipient agent. To continue the dialogue, invoke this tool again with the desired recipient and your follow-up message. Remember, communication here is synchronous; the recipient agent won't perform any tasks post-response. You are responsible for relaying the recipient agent's responses back to the user, as they do not have direct access to these replies. Keep engaging with the tool for continuous interaction until the task is fully resolved.",
+                    "parameters": {
+                        "$defs": {
+                            "recipient": {
+                                "enum": [
+                                    "Developer",
+                                    "Virtual Assistant"
+                                ],
+                                "title": "recipient",
+                                "type": "string"
+                            }
+                        },
+                        "properties": {
+                            "instructions": {
+                                "description": "Please repeat your instructions step-by-step, including both completed and the following next steps that you need to perfrom. For multi-step complex tasks, first break them down into smaller steps yourself. Then, issue each step individually to the recipient agent via the message parameter.",
+                                "title": "Instructions",
+                                "type": "string"
+                            },
+                            "recipient": {
+                                "allOf": [
+                                    {
+                                        "$ref": "#/$defs/recipient"
+                                    }
+                                ],
+                                "description": "Developer: Responsible for running and executing Python Programs.\nVirtual Assistant: Responsible for doing research and writing proposals.\n"
+                            },
+                            "message": {
+                                "description": "Specify the task required for the recipient agent to complete. Focus on clarifying what the task entails, rather than providing exact instructions.",
+                                "title": "Message",
+                                "type": "string"
+                            },
+                            "message_files": {
+                                "default": null,
+                                "description": "A list of file ids to be sent as attachments to the message. Only use this if you have the file id that starts with 'file-'.",
+                                "examples": [
+                                    "file-1234",
+                                    "file-5678"
+                                ],
+                                "items": {
+                                    "type": "string"
+                                },
+                                "title": "Message Files",
+                                "type": "array"
+                            }
+                        },
+                        "required": [
+                            "instructions",
+                            "message",
+                            "recipient"
+                        ],
+                        "type": "object"
+                    }
+                },
+                "type": "function"
+            }
+        ]
+    },
+    {
+        "id": "asst_zQhUF3nYH2551B3BpVtESoo2",
+        "created_at": 1706766764,
+        "description": "Responsible for running and executing Python Programs.",
+        "file_ids": [],
+        "instructions": "# \"VRSEN AI\" Agency Manifesto\n\nYou are a part of a virtual AI development agency called \"VRSEN AI\"\n\nYour mission is to empower businesses to navigate the AI revolution successfully.\n\n# Instructions for AI Developer Agent\n\n- Write clean and efficient Python code.\n- Structure your code logically, with `main.py` as the entry point.\n- Ensure correct imports according to program structure.\n- Execute your code to test for functionality and errors, before reporting back to the user.\n- Anticipate and handle potential runtime errors.\n- Provide clear error messages for easier troubleshooting.\n- Debug any issues before reporting the results back to the user.",
+        "metadata": {},
+        "model": "gpt-4-1106-preview",
+        "name": "Developer",
+        "object": "assistant",
+        "tools": [
+            {
+                "function": {
+                    "name": "ExecuteCommand",
+                    "description": "Run any command from the terminal. If there are too many logs, the outputs might be truncated.",
+                    "parameters": {
+                        "properties": {
+                            "command": {
+                                "description": "The command to be executed.",
+                                "title": "Command",
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "command"
+                        ],
+                        "type": "object"
+                    }
+                },
+                "type": "function"
+            },
+            {
+                "function": {
+                    "name": "Program",
+                    "description": "Set of files that represent a complete and correct program. This environment has access to all standard Python packages and the internet.",
+                    "parameters": {
+                        "$defs": {
+                            "File": {
+                                "description": "File to be written to the disk with an appropriate name and file path, containing code that can be saved and executed locally at a later time.",
+                                "properties": {
+                                    "caller_agent": {
+                                        "anyOf": [
+                                            {},
+                                            {
+                                                "type": "null"
+                                            }
+                                        ],
+                                        "default": null,
+                                        "description": "The agent that called this tool. Please ignore this field.",
+                                        "title": "Caller Agent"
+                                    },
+                                    "file_name": {
+                                        "description": "The name of the file including the extension and the file path from your current directory if needed.",
+                                        "title": "File Name",
+                                        "type": "string"
+                                    },
+                                    "body": {
+                                        "description": "Correct contents of a file",
+                                        "title": "Body",
+                                        "type": "string"
+                                    }
+                                },
+                                "required": [
+                                    "file_name",
+                                    "body"
+                                ],
+                                "title": "File",
+                                "type": "object"
+                            }
+                        },
+                        "properties": {
+                            "chain_of_thought": {
+                                "description": "Think step by step to determine the correct actions that are needed to implement the program.",
+                                "title": "Chain Of Thought",
+                                "type": "string"
+                            },
+                            "files": {
+                                "description": "List of files",
+                                "items": {
+                                    "$ref": "#/$defs/File"
+                                },
+                                "title": "Files",
+                                "type": "array"
+                            }
+                        },
+                        "required": [
+                            "chain_of_thought",
+                            "files"
+                        ],
+                        "type": "object"
+                    }
+                },
+                "type": "function"
+            },
+            {
+                "function": {
+                    "name": "SendMessage",
+                    "description": "Use this tool to facilitate direct, synchronous communication between specialized agents within your agency. When you send a message using this tool, you receive a response exclusively from the designated recipient agent. To continue the dialogue, invoke this tool again with the desired recipient and your follow-up message. Remember, communication here is synchronous; the recipient agent won't perform any tasks post-response. You are responsible for relaying the recipient agent's responses back to the user, as they do not have direct access to these replies. Keep engaging with the tool for continuous interaction until the task is fully resolved.",
+                    "parameters": {
+                        "$defs": {
+                            "recipient": {
+                                "const": "Virtual Assistant",
+                                "title": "recipient"
+                            }
+                        },
+                        "properties": {
+                            "instructions": {
+                                "description": "Please repeat your instructions step-by-step, including both completed and the following next steps that you need to perfrom. For multi-step complex tasks, first break them down into smaller steps yourself. Then, issue each step individually to the recipient agent via the message parameter.",
+                                "title": "Instructions",
+                                "type": "string"
+                            },
+                            "recipient": {
+                                "allOf": [
+                                    {
+                                        "$ref": "#/$defs/recipient"
+                                    }
+                                ],
+                                "description": "Virtual Assistant: Responsible for doing research and writing proposals.\n"
+                            },
+                            "message": {
+                                "description": "Specify the task required for the recipient agent to complete. Focus on clarifying what the task entails, rather than providing exact instructions.",
+                                "title": "Message",
+                                "type": "string"
+                            },
+                            "message_files": {
+                                "default": null,
+                                "description": "A list of file ids to be sent as attachments to the message. Only use this if you have the file id that starts with 'file-'.",
+                                "examples": [
+                                    "file-1234",
+                                    "file-5678"
+                                ],
+                                "items": {
+                                    "type": "string"
+                                },
+                                "title": "Message Files",
+                                "type": "array"
+                            }
+                        },
+                        "required": [
+                            "instructions",
+                            "message",
+                            "recipient"
+                        ],
+                        "type": "object"
+                    }
+                },
+                "type": "function"
+            }
+        ]
+    },
+    {
+        "id": "asst_VXAsIY7kpmi6z2O8imjJguT6",
+        "created_at": 1706766765,
+        "description": "Responsible for doing research and writing proposals.",
+        "file_ids": [],
+        "instructions": "# \"VRSEN AI\" Agency Manifesto\n\nYou are a part of a virtual AI development agency called \"VRSEN AI\"\n\nYour mission is to empower businesses to navigate the AI revolution successfully.\n\n### Instructions for Virtual Assistant\n\nYour role is to assist users in executing tasks like below. If the task is outside of your capabilities, please report back to the user.\n\n#### 1. Generating Proposals\n   - **Gather Requirements**: Collect all necessary information about the project, including client needs, objectives, and any specific requests.\n\n#### 2. Conducting Research\n   - **Understand the Objective**: Clarify the purpose and objectives of the research to focus on relevant information.\n   - **Summarize Findings**: Provide clear, concise summaries of the research findings, highlighting key points and how they relate to the project or inquiry.\n   - **Cite Sources**: Properly cite all sources to maintain integrity and avoid plagiarism.\n",
+        "metadata": {},
+        "model": "gpt-4-1106-preview",
+        "name": "Virtual Assistant",
+        "object": "assistant",
+        "tools": [
+            {
+                "function": {
+                    "name": "SearchWeb",
+                    "description": "Search the web with a search phrase and return the results.",
+                    "parameters": {
+                        "properties": {
+                            "phrase": {
+                                "description": "The search phrase you want to use. Optimize the search phrase for an internet search engine.",
+                                "title": "Phrase",
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "phrase"
+                        ],
+                        "type": "object"
+                    }
+                },
+                "type": "function"
+            },
+            {
+                "function": {
+                    "name": "GenerateProposal",
+                    "description": "Generate a proposal for a project based on a project brief. Remember that user does not have access to the output of this function. You must send it back to him after execution.",
+                    "parameters": {
+                        "properties": {
+                            "project_brief": {
+                                "description": "The project breif to generate a proposal for.",
+                                "title": "Project Brief",
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "project_brief"
+                        ],
+                        "type": "object"
+                    }
+                },
+                "type": "function"
+            }
+        ]
+    }
+]
