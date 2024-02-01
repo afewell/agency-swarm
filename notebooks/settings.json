@@ -18,7 +18,7 @@
                         "$defs": {
                             "recipient": {
                                 "enum": [
-                                    "Developer",
+                                    "CodingAgent",
                                     "Virtual Assistant"
                                 ],
                                 "title": "recipient",
@@ -37,7 +37,7 @@
                                         "$ref": "#/$defs/recipient"
                                     }
                                 ],
-                                "description": "Developer: Responsible for running and executing Python Programs.\nVirtual Assistant: Responsible for doing research and writing proposals.\n"
+                                "description": "CodingAgent: This agent is equipped with specialized tools to navigate and execute code in a local environment.\nVirtual Assistant: Responsible for doing research and writing proposals.\n"
                             },
                             "message": {
                                 "description": "Specify the task required for the recipient agent to complete. Focus on clarifying what the task entails, rather than providing exact instructions.",
@@ -265,6 +265,278 @@
                         },
                         "required": [
                             "project_brief"
+                        ],
+                        "type": "object"
+                    }
+                },
+                "type": "function"
+            }
+        ]
+    },
+    {
+        "id": "asst_anbsCQ3lA3IvAVCYvLbU5bj8",
+        "created_at": 1706778347,
+        "description": "This agent is equipped with specialized tools to navigate and execute code in a local environment.",
+        "file_ids": [],
+        "instructions": "# \"VRSEN AI\" Agency Manifesto\n\nYou are a part of a virtual AI development agency called \"VRSEN AI\"\n\nYour mission is to empower businesses to navigate the AI revolution successfully.\n\n# Coding Agent Instructions\n\nYour are an advanced coding agent that can write code and execute local commands.",
+        "metadata": {},
+        "model": "gpt-4-1106-preview",
+        "name": "CodingAgent",
+        "object": "assistant",
+        "tools": [
+            {
+                "function": {
+                    "name": "ChangeDir",
+                    "description": "This tool changes the current working directory to the specified path.",
+                    "parameters": {
+                        "properties": {
+                            "path": {
+                                "description": "Path to the directory to change to.",
+                                "examples": [
+                                    "./some_folder",
+                                    "../../some_folder"
+                                ],
+                                "title": "Path",
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "path"
+                        ],
+                        "type": "object"
+                    }
+                },
+                "type": "function"
+            },
+            {
+                "function": {
+                    "name": "ChangeLines",
+                    "description": "This tool changes specified lines in a file. Returns the new file contents.",
+                    "parameters": {
+                        "$defs": {
+                            "LineChange": {
+                                "description": "Line changes to be made.",
+                                "properties": {
+                                    "line_number": {
+                                        "description": "Line number to change.",
+                                        "examples": [
+                                            1,
+                                            2,
+                                            3
+                                        ],
+                                        "title": "Line Number",
+                                        "type": "integer"
+                                    },
+                                    "new_line": {
+                                        "anyOf": [
+                                            {
+                                                "type": "string"
+                                            },
+                                            {
+                                                "type": "null"
+                                            }
+                                        ],
+                                        "description": "New line to replace the old line. Not required only for delete mode.",
+                                        "examples": [
+                                            "This is a new line"
+                                        ],
+                                        "title": "New Line"
+                                    },
+                                    "mode": {
+                                        "default": "replace",
+                                        "description": "Mode to use for the line change. \"replace\" replaces the line with the new line, \"insert\" inserts the new line at the specified line number, and \"delete\" deletes the specified line number.",
+                                        "enum": [
+                                            "replace",
+                                            "insert",
+                                            "delete"
+                                        ],
+                                        "title": "Mode",
+                                        "type": "string"
+                                    }
+                                },
+                                "required": [
+                                    "line_number",
+                                    "new_line"
+                                ],
+                                "title": "LineChange",
+                                "type": "object"
+                            }
+                        },
+                        "properties": {
+                            "file_path": {
+                                "description": "Path to the file with extension.",
+                                "examples": [
+                                    "./file.txt",
+                                    "./file.json",
+                                    "../../file.py"
+                                ],
+                                "title": "File Path",
+                                "type": "string"
+                            },
+                            "changes": {
+                                "description": "Line changes to be made to the file.",
+                                "examples": [
+                                    {
+                                        "line_number": 1,
+                                        "mode": "replace",
+                                        "new_line": "This is a new line"
+                                    }
+                                ],
+                                "items": {
+                                    "$ref": "#/$defs/LineChange"
+                                },
+                                "title": "Changes",
+                                "type": "array"
+                            }
+                        },
+                        "required": [
+                            "changes",
+                            "file_path"
+                        ],
+                        "type": "object"
+                    }
+                },
+                "type": "function"
+            },
+            {
+                "function": {
+                    "name": "ReadFile",
+                    "description": "This tool reads a file and returns the contents along with line numbers on the left.",
+                    "parameters": {
+                        "properties": {
+                            "file_path": {
+                                "description": "Path to the file to read with extension.",
+                                "examples": [
+                                    "./file.txt",
+                                    "./file.json",
+                                    "../../file.py"
+                                ],
+                                "title": "File Path",
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "file_path"
+                        ],
+                        "type": "object"
+                    }
+                },
+                "type": "function"
+            },
+            {
+                "function": {
+                    "name": "WriteFiles",
+                    "description": "Set of files that represent a complete and correct program.",
+                    "parameters": {
+                        "$defs": {
+                            "File": {
+                                "description": "File to be written to the disk with an appropriate name and file path, containing code that can be saved and executed locally at a later time.",
+                                "properties": {
+                                    "caller_agent": {
+                                        "anyOf": [
+                                            {},
+                                            {
+                                                "type": "null"
+                                            }
+                                        ],
+                                        "default": null,
+                                        "description": "The agent that called this tool. This field will be removed from schema.",
+                                        "title": "Caller Agent"
+                                    },
+                                    "file_name": {
+                                        "description": "The name of the file including the extension and the file path from your current directory if needed.",
+                                        "title": "File Name",
+                                        "type": "string"
+                                    },
+                                    "body": {
+                                        "description": "Correct contents of a file",
+                                        "title": "Body",
+                                        "type": "string"
+                                    }
+                                },
+                                "required": [
+                                    "file_name",
+                                    "body"
+                                ],
+                                "title": "File",
+                                "type": "object"
+                            }
+                        },
+                        "properties": {
+                            "chain_of_thought": {
+                                "description": "Think step by step to determine the correct actions that are needed to implement the program.",
+                                "title": "Chain Of Thought",
+                                "type": "string"
+                            },
+                            "files": {
+                                "description": "List of files",
+                                "items": {
+                                    "$ref": "#/$defs/File"
+                                },
+                                "title": "Files",
+                                "type": "array"
+                            }
+                        },
+                        "required": [
+                            "chain_of_thought",
+                            "files"
+                        ],
+                        "type": "object"
+                    }
+                },
+                "type": "function"
+            },
+            {
+                "type": "code_interpreter"
+            },
+            {
+                "function": {
+                    "name": "SendMessage",
+                    "description": "Use this tool for synchronous communication with other agents within your agency. For ongoing dialogue, resend messages to specific agents. Communication is synchronous, without post-response tasks. Relay agent responses to the user, who lacks direct access. Continue using the tool for continuous interaction until task completion.",
+                    "parameters": {
+                        "$defs": {
+                            "recipient": {
+                                "const": "Virtual Assistant",
+                                "title": "recipient"
+                            }
+                        },
+                        "properties": {
+                            "instructions": {
+                                "description": "Please repeat your instructions step-by-step, including both completed and the following next steps that you need to perfrom. For multi-step, complex tasks, first break them down into smaller steps yourself. Then, issue each step individually to the recipient agent via the message parameter. Each identified step should be sent in separate message.",
+                                "title": "Instructions",
+                                "type": "string"
+                            },
+                            "recipient": {
+                                "allOf": [
+                                    {
+                                        "$ref": "#/$defs/recipient"
+                                    }
+                                ],
+                                "description": "Virtual Assistant: Responsible for doing research and writing proposals.\n"
+                            },
+                            "message": {
+                                "description": "Specify the task required for the recipient agent to complete. Focus on clarifying what the task entails, rather than providing exact instructions.",
+                                "title": "Message",
+                                "type": "string"
+                            },
+                            "message_files": {
+                                "default": null,
+                                "description": "A list of file ids to be sent as attachments to this message. Only use this if you have the file id that starts with 'file-'.",
+                                "examples": [
+                                    "file-1234",
+                                    "file-5678"
+                                ],
+                                "items": {
+                                    "type": "string"
+                                },
+                                "title": "Message Files",
+                                "type": "array"
+                            }
+                        },
+                        "required": [
+                            "instructions",
+                            "message",
+                            "recipient"
                         ],
                         "type": "object"
                     }
