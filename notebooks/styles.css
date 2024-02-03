@@ -1,0 +1,34 @@
+/* Basic Reset */
+body, h1, table { margin: 0; padding: 0; }
+
+/* Header styles */
+header {
+  background-color: #f1c0e8; /* Soft pink shade */
+  padding: 20px 0;
+  text-align: center;
+}
+
+h1 {
+  font-family: 'Arial', sans-serif;
+  color: #541f4f; /* Deep purple shade */
+}
+
+/* Table styles */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+th, td {
+  text-align: left;
+  padding: 8px;
+  border-bottom: 1px solid #ddd;
+}
+
+th {
+  background-color: #f2e2f3;
+  color: #541f4f;
+}
+
+/* Add more styles as needed */
