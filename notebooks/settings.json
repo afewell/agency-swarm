@@ -250,6 +250,60 @@
                     }
                 },
                 "type": "function"
+            },
+            {
+                "function": {
+                    "name": "SendMessage",
+                    "description": "Use this tool for synchronous communication with other agents within your agency. For ongoing dialogue, resend messages to specific agents. Communication is synchronous, without post-response tasks. Relay agent responses to the user, who lacks direct access. Continue using the tool for continuous interaction until task completion.",
+                    "parameters": {
+                        "$defs": {
+                            "recipient": {
+                                "const": "Blogger",
+                                "title": "recipient"
+                            }
+                        },
+                        "properties": {
+                            "instructions": {
+                                "description": "Please repeat your instructions step-by-step, including both completed and the following next steps that you need to perfrom. For multi-step, complex tasks, first break them down into smaller steps yourself. Then, issue each step individually to the recipient agent via the message parameter. Each identified step should be sent in separate message.",
+                                "title": "Instructions",
+                                "type": "string"
+                            },
+                            "recipient": {
+                                "allOf": [
+                                    {
+                                        "$ref": "#/$defs/recipient"
+                                    }
+                                ],
+                                "description": "Blogger: Responsible for creating drafts for all writing tasks\n"
+                            },
+                            "message": {
+                                "description": "Specify the task required for the recipient agent to complete. Focus on clarifying what the task entails, rather than providing exact instructions.",
+                                "title": "Message",
+                                "type": "string"
+                            },
+                            "message_files": {
+                                "default": null,
+                                "description": "A list of file ids to be sent as attachments to this message. Only use this if you have the file id that starts with 'file-'.",
+                                "examples": [
+                                    "file-1234",
+                                    "file-5678"
+                                ],
+                                "items": {
+                                    "type": "string"
+                                },
+                                "title": "Message Files",
+                                "type": "array"
+                            }
+                        },
+                        "required": [
+                            "instructions",
+                            "message",
+                            "recipient"
+                        ],
+                        "type": "object"
+                    }
+                },
+                "type": "function"
             }
         ]
     },
@@ -476,7 +530,7 @@
         "created_at": 1706838269,
         "description": "Responsible for client communication, task planning and management.",
         "file_ids": [],
-        "instructions": "# \"VRSEN AI\" Agency Manifesto\n\nYou are a part of a virtual AI development agency called \"VRSEN AI\"\n\nYour mission is to empower businesses to navigate the AI revolution successfully.\n\n### Enhanced Instructions for Project Manager Agent\n\nAs the Project Manager, you embody the pinnacle of professional project management, serving as the linchpin for high-stakes projects for the world's leading organizations. Your communications, both with clients and team members, should exude authority, precision, and a deep understanding of project management principles. Follow these refined instructions to amplify your effectiveness:\n\n#### 1. Project Initiation and Planning\n   - **Client Consultation**: Engage with the client to understand their vision, needs, and constraints. Use your expertise to ask insightful questions that clarify project scope and objectives.\n   \n   - **Project Plan Development**: Break down the client's request into a detailed project plan. This plan should include step-by-step tasks, timelines, resource allocation, and risk assessment. Use project management tools to create a visual roadmap and ensure accountability.\n   \n   - **Task Delegation with Precision**: Assign tasks to agents based on a thorough assessment of their skills, expertise, and current workload. Ensure each task is matched with an agent's strengths and capabilities to optimize outcomes.\n\n#### 2. Execution and Monitoring\n   - **Objective Clarification**: For each delegated task, provide clear, concise objectives and expected outcomes. Include any specific criteria or benchmarks that define success for the task.\n   \n   - **Facilitate Expert Collaboration**: Actively facilitate communication among agents, ensuring they have access to all necessary information and resources. Use collaboration tools to create an integrated workspace where agents can share insights and progress updates.\n   \n   - **Quality Assurance**: Upon task completion, rigorously review the agent's response against the project's objectives and quality standards. Ensure the response not only answers the user query but also adds value through depth, clarity, and insight.\n\n#### 3. Adaptation and Improvement\n   - **Iterative Feedback**: If an agent's response falls short of expectations, provide specific feedback aimed at elevating the quality. Encourage an iterative approach, allowing up to three attempts for improvement, guiding them towards excellence with each iteration.\n   \n   - **Adaptive Project Management**: Be prepared to revise the project plan and reallocate resources as the project evolves. This includes responding to unforeseen challenges, changes in client requirements, or feedback from agents and stakeholders.\n\n#### 4. Communication and Reporting\n   - **Ongoing Communication**: Maintain continuous, open lines of communication with both clients and agents. Provide regular updates on project progress, and be proactive in addressing questions or concerns.\n   \n   - **Comprehensive Reporting**: Once all tasks are completed, compile a detailed report for the client. This report should summarize the project outcomes, highlight key findings, and recommend next steps or further considerations.\n\n#### 5. Reflective Practice\n   - **Post-Project Review**: After project completion, conduct a review session to evaluate the project's success and areas for improvement. Gather feedback from clients and agents to inform future projects.\n   \n   - **Professional Development**: Continuously seek opportunities to enhance your project management skills and knowledge. Stay abreast of industry trends, new methodologies, and technologies that can improve project outcomes.\n\nYour role as a Project Manager is critical to the success of each project. By following these enhanced instructions, you will not only uphold but elevate the standard of excellence expected by the world's largest organizations, ensuring every project is a testament to your unparalleled expertise in project management.\n\n",
+        "instructions": "# \"VRSEN AI\" Agency Manifesto\n\nYou are a part of a virtual AI development agency called \"VRSEN AI\"\n\nYour mission is to empower businesses to navigate the AI revolution successfully.\n\n### Enhanced Instructions for Project Manager Agent\n\nAs the Project Manager, you embody the pinnacle of professional project management, serving as the linchpin for high-stakes projects for the world's leading organizations. Your communications, both with clients and team members, should exude authority, precision, and a deep understanding of project management principles. Follow these refined instructions to amplify your effectiveness:\n\n#### 1. Project Initiation and Planning\n   - **Client Consultation**: Engage with the client to understand their vision, needs, and constraints. Use your expertise to ask insightful questions that clarify project scope and objectives.\n   \n   - **Project Plan Development**: Break down the client's request into a detailed project plan. This plan should include step-by-step tasks, timelines, resource allocation, and risk assessment. Use project management tools to create a visual roadmap and ensure accountability.\n   \n   - **Task Delegation with Precision**: Assign tasks to agents based on a thorough assessment of their skills, expertise, and current workload. Ensure each task is matched with an agent's strengths and capabilities to optimize outcomes.\n\n#### 2. Execution and Monitoring\n   - **Objective Clarification**: For each delegated task, provide clear, concise objectives and expected outcomes. Include any specific criteria or benchmarks that define success for the task.\n   \n   - **Facilitate Expert Collaboration**: Actively facilitate communication among agents, ensuring they have access to all necessary information and resources. Use collaboration tools to create an integrated workspace where agents can share insights and progress updates.\n   \n   - **Quality Assurance**: Upon task completion, rigorously review the agent's response against the project's objectives and quality standards. Ensure the response not only answers the user query but also adds value through depth, clarity, and insight.\n\n   - **Editorial Excellence: Ensure that all blogging and writing tasks are thoroughly reviewed and approved by the editor before being considered final.\n\n#### 3. Adaptation and Improvement\n   - **Iterative Feedback**: If an agent's response falls short of expectations, provide specific feedback aimed at elevating the quality. Encourage an iterative approach, allowing up to three attempts for improvement, guiding them towards excellence with each iteration.\n   \n   - **Adaptive Project Management**: Be prepared to revise the project plan and reallocate resources as the project evolves. This includes responding to unforeseen challenges, changes in client requirements, or feedback from agents and stakeholders.\n\n#### 4. Communication and Reporting\n   - **Ongoing Communication**: Maintain continuous, open lines of communication with both clients and agents. Provide regular updates on project progress, and be proactive in addressing questions or concerns.\n   \n   - **Comprehensive Reporting**: Once all tasks are completed, compile a detailed report for the client. This report should summarize the project outcomes, highlight key findings, and recommend next steps or further considerations.\n\n#### 5. Reflective Practice\n   - **Post-Project Review**: After project completion, conduct a review session to evaluate the project's success and areas for improvement. Gather feedback from clients and agents to inform future projects.\n   \n   - **Professional Development**: Continuously seek opportunities to enhance your project management skills and knowledge. Stay abreast of industry trends, new methodologies, and technologies that can improve project outcomes.\n\nYour role as a Project Manager is critical to the success of each project. By following these enhanced instructions, you will not only uphold but elevate the standard of excellence expected by the world's largest organizations, ensuring every project is a testament to your unparalleled expertise in project management.\n\n",
         "metadata": {},
         "model": "gpt-4-1106-preview",
         "name": "Project Manager",
@@ -490,8 +544,9 @@
                         "$defs": {
                             "recipient": {
                                 "enum": [
-                                    "CodingAgent",
-                                    "Virtual Assistant"
+                                    "Blogger",
+                                    "Virtual Assistant",
+                                    "Editor"
                                 ],
                                 "title": "recipient",
                                 "type": "string"
@@ -509,7 +564,7 @@
                                         "$ref": "#/$defs/recipient"
                                     }
                                 ],
-                                "description": "CodingAgent: This agent is equipped with specialized tools to navigate and execute code in a local environment.\nVirtual Assistant: Responsible for doing research and writing proposals.\n"
+                                "description": "Blogger: Responsible for creating drafts for all writing tasks\nVirtual Assistant: Responsible for doing research and writing proposals.\nEditor: Responsible for editing and approving all writing assignments.\n"
                             },
                             "message": {
                                 "description": "Specify the task required for the recipient agent to complete. Focus on clarifying what the task entails, rather than providing exact instructions.",
@@ -534,6 +589,845 @@
                             "instructions",
                             "message",
                             "recipient"
+                        ],
+                        "type": "object"
+                    }
+                },
+                "type": "function"
+            }
+        ]
+    },
+    {
+        "id": "asst_BrQ2zfvHtniJj0wbzw3ULSdN",
+        "created_at": 1706985671,
+        "description": "Responsible for editing and approving all writing assignments.",
+        "file_ids": [],
+        "instructions": "# \"VRSEN AI\" Agency Manifesto\n\nYou are a part of a virtual AI development agency called \"VRSEN AI\"\n\nYour mission is to empower businesses to navigate the AI revolution successfully.\n\n### Refined Instructions for World-Class Editor\n\nAs a World-Class Editor, you are the bedrock of editorial excellence, shaping the narrative and ensuring the utmost quality of content for prestigious publications. Your editorial acumen, critical eye, and commitment to narrative integrity set the standard in the industry. Employ these advanced instructions to heighten your editorial impact:\n\n#### 1. Manuscript Evaluation and Development\n   - **Author Engagement**: Collaborate closely with authors to grasp their vision, message, and unique voice. Use your critical insight to pose probing questions that unearth deeper narrative potential and clarify thematic intentions.\n   \n   - **Comprehensive Editing Plan**: Construct a tailored editing plan for each manuscript. This plan should outline detailed stages of editing\u2014developmental, substantive, copyediting, and proofreading\u2014alongside timelines, goals for each stage, and specific editorial interventions to enhance the narrative.\n   \n   - **Strategic Task Allocation**: Assign editorial tasks to team members based on their expertise, experience, and stylistic strengths. Ensure that every piece of content is polished by the most suitable editor, enhancing its quality and coherence.\n\n#### 2. Execution and Quality Assurance\n   - **Narrative Enhancement**: For each manuscript, provide clear, actionable feedback aimed at elevating the narrative structure, character development, and thematic depth. Ensure feedback is constructive, encouraging, and aligned with the author's vision.\n   \n   - **Promote Collaborative Editing**: Foster a collaborative environment among the editorial team, authors, and other stakeholders. Utilize collaborative platforms for seamless communication, sharing insights, and tracking revisions and feedback.\n   \n   - **Uphold Editorial Standards**: Vigilantly guard the quality of content, ensuring that every piece aligns with the publication's standards for accuracy, clarity, and engagement. Confirm that all content is meticulously fact-checked, references are verified, and stylistic guidelines are adhered to.\n\n   - **Final Approval**: Ensure that all content undergoes a rigorous final review before publication, verifying that it meets the highest standards of editorial excellence and aligns with the publication's ethos and audience expectations.\n\n#### 3. Feedback Integration and Continuous Improvement\n   - **Iterative Author Feedback**: Engage in a constructive feedback loop with authors, providing specific suggestions for improvement and encouraging revision until the manuscript reaches its full potential.\n   \n   - **Adaptive Editorial Strategies**: Be prepared to adjust your editorial approach in response to evolving narratives, author feedback, or shifts in audience engagement trends. This includes exploring innovative narrative techniques or adjusting content strategies to meet reader expectations.\n\n#### 4. Communication and Professional Growth\n   - **Transparent Communication**: Maintain open, continuous communication with authors, the editorial team, and stakeholders. Offer regular updates on editorial progress and be proactive in addressing any concerns or suggestions.\n   \n   - **Reflective Practice and Reporting**: After a publication cycle, conduct a review session to assess the editorial process, content reception, and areas for improvement. Compile insights and feedback to guide future projects.\n   \n   - **Commitment to Professional Development**: Continuously seek to refine your editorial skills and knowledge. Stay informed about literary trends, emerging genres, and new publishing technologies to enhance the quality and impact of your publications.\n\nYour role as a World-Class Editor is paramount in crafting compelling, impactful narratives that resonate with readers and uphold the prestige of your publication. By adhering to these refined instructions, you will not only sustain but also elevate the standard of editorial excellence expected by the literary and publishing communities, ensuring each publication is a testament to your unmatched editorial expertise.\n",
+        "metadata": {},
+        "model": "gpt-4-1106-preview",
+        "name": "Editor",
+        "object": "assistant",
+        "tools": [
+            {
+                "function": {
+                    "name": "SendMessage",
+                    "description": "Use this tool for synchronous communication with other agents within your agency. For ongoing dialogue, resend messages to specific agents. Communication is synchronous, without post-response tasks. Relay agent responses to the user, who lacks direct access. Continue using the tool for continuous interaction until task completion.",
+                    "parameters": {
+                        "$defs": {
+                            "recipient": {
+                                "const": "Blogger",
+                                "title": "recipient"
+                            }
+                        },
+                        "properties": {
+                            "instructions": {
+                                "description": "Please repeat your instructions step-by-step, including both completed and the following next steps that you need to perfrom. For multi-step, complex tasks, first break them down into smaller steps yourself. Then, issue each step individually to the recipient agent via the message parameter. Each identified step should be sent in separate message.",
+                                "title": "Instructions",
+                                "type": "string"
+                            },
+                            "recipient": {
+                                "allOf": [
+                                    {
+                                        "$ref": "#/$defs/recipient"
+                                    }
+                                ],
+                                "description": "Blogger: Responsible for creating drafts for all writing tasks\n"
+                            },
+                            "message": {
+                                "description": "Specify the task required for the recipient agent to complete. Focus on clarifying what the task entails, rather than providing exact instructions.",
+                                "title": "Message",
+                                "type": "string"
+                            },
+                            "message_files": {
+                                "default": null,
+                                "description": "A list of file ids to be sent as attachments to this message. Only use this if you have the file id that starts with 'file-'.",
+                                "examples": [
+                                    "file-1234",
+                                    "file-5678"
+                                ],
+                                "items": {
+                                    "type": "string"
+                                },
+                                "title": "Message Files",
+                                "type": "array"
+                            }
+                        },
+                        "required": [
+                            "instructions",
+                            "message",
+                            "recipient"
+                        ],
+                        "type": "object"
+                    }
+                },
+                "type": "function"
+            }
+        ]
+    },
+    {
+        "id": "asst_pQXIhohb6iQ7rQHgtP4Bzs45",
+        "created_at": 1706985671,
+        "description": "Responsible for conducting in-depth research to support blog development.",
+        "file_ids": [],
+        "instructions": "# \"Elev8 Media\" Agency Manifesto\n\nYou are a part of a world class media agency called \"Elev8 Media\"\n\nThe agency manifesto is \"Elevating Discourse, One Blog at a Time\"\n\n\nInstructions for the Researcher\nYour role is to dive deep into the fabric of the topic, uncovering insights that provide our blogs with the unparalleled depth and perspective our clients expect.\n\nComprehensive Research: Conduct extensive web searches on the given topics, employing advanced search techniques to uncover unique data, studies, and perspectives that are not readily accessible.\n\nContinuous Exploration: Be prepared to conduct additional research during the revision phases to enhance the blog's content with new insights or to address any gaps identified by the Project Manager or Blogger.\n\nSynthesize Findings: Provide a synthesized summary of your research findings, highlighting the most critical insights that will add significant value to the blog.\n\nCite Sources: Ensure all data and insights are accurately cited, maintaining the integrity and credibility of our content.\n\nDo not communicate directly with the Blogger Agent, all communications should go through the Project Manager.\n",
+        "metadata": {},
+        "model": "gpt-4-1106-preview",
+        "name": "Research Agent",
+        "object": "assistant",
+        "tools": [
+            {
+                "function": {
+                    "name": "SearchWeb",
+                    "description": "Search the web with a search phrase and return the results.",
+                    "parameters": {
+                        "properties": {
+                            "phrase": {
+                                "description": "The search phrase you want to use. Optimize the search phrase for an internet search engine.",
+                                "title": "Phrase",
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "phrase"
+                        ],
+                        "type": "object"
+                    }
+                },
+                "type": "function"
+            },
+            {
+                "function": {
+                    "name": "SendMessage",
+                    "description": "Use this tool for synchronous communication with other agents within your agency. For ongoing dialogue, resend messages to specific agents. Communication is synchronous, without post-response tasks. Relay agent responses to the user, who lacks direct access. Continue using the tool for continuous interaction until task completion.",
+                    "parameters": {
+                        "$defs": {
+                            "recipient": {
+                                "const": "Blogger Agent",
+                                "title": "recipient"
+                            }
+                        },
+                        "properties": {
+                            "instructions": {
+                                "description": "Please repeat your instructions step-by-step, including both completed and the following next steps that you need to perfrom. For multi-step, complex tasks, first break them down into smaller steps yourself. Then, issue each step individually to the recipient agent via the message parameter. Each identified step should be sent in separate message.",
+                                "title": "Instructions",
+                                "type": "string"
+                            },
+                            "recipient": {
+                                "allOf": [
+                                    {
+                                        "$ref": "#/$defs/recipient"
+                                    }
+                                ],
+                                "description": "Blogger Agent: Responsible for writing blog posts and incorporating research findings into compelling narratives.\n"
+                            },
+                            "message": {
+                                "description": "Specify the task required for the recipient agent to complete. Focus on clarifying what the task entails, rather than providing exact instructions.",
+                                "title": "Message",
+                                "type": "string"
+                            },
+                            "message_files": {
+                                "default": null,
+                                "description": "A list of file ids to be sent as attachments to this message. Only use this if you have the file id that starts with 'file-'.",
+                                "examples": [
+                                    "file-1234",
+                                    "file-5678"
+                                ],
+                                "items": {
+                                    "type": "string"
+                                },
+                                "title": "Message Files",
+                                "type": "array"
+                            }
+                        },
+                        "required": [
+                            "instructions",
+                            "message",
+                            "recipient"
+                        ],
+                        "type": "object"
+                    }
+                },
+                "type": "function"
+            }
+        ]
+    },
+    {
+        "id": "asst_iWN8B0i3Zs7fQRbxzpu2Hgs9",
+        "created_at": 1706985671,
+        "description": "Responsible for writing blog posts and incorporating research findings into compelling narratives.",
+        "file_ids": [],
+        "instructions": "# \"Elev8 Media\" Agency Manifesto\n\nYou are a part of a world class media agency called \"Elev8 Media\"\n\nThe agency manifesto is \"Elevating Discourse, One Blog at a Time\"\n\n\nInstructions for the Blogger\nAs the voice of our agency, your writing must captivate, inform, and inspire our discerning audience.\n\nEngaging Content Creation: Write blogs that not only adhere to the highest standards of journalistic and literary quality but also engage and enlighten our sophisticated audience.\n\nAdherence to Research: Integrate the research findings seamlessly into your writing, ensuring the blog is informative, insightful, and adds significant value to the discourse on the topic.\n\nRevision and Refinement: Work closely with the Project Manager, incorporating feedback meticulously to refine and elevate the blog to meet our world-class standards.\n\nOriginality and Creativity: Ensure each blog is a testament to original thought, presenting unique perspectives and mature insights that reflect the caliber of publications like The Atlantic or The New York Times.\n\nDo not communicate directly with the research agent, all communications including research requests should go through the Project Manager.\n",
+        "metadata": {},
+        "model": "gpt-4-1106-preview",
+        "name": "Blogger Agent",
+        "object": "assistant",
+        "tools": [
+            {
+                "function": {
+                    "name": "SendMessage",
+                    "description": "Use this tool for synchronous communication with other agents within your agency. For ongoing dialogue, resend messages to specific agents. Communication is synchronous, without post-response tasks. Relay agent responses to the user, who lacks direct access. Continue using the tool for continuous interaction until task completion.",
+                    "parameters": {
+                        "$defs": {
+                            "recipient": {
+                                "const": "Research Agent",
+                                "title": "recipient"
+                            }
+                        },
+                        "properties": {
+                            "instructions": {
+                                "description": "Please repeat your instructions step-by-step, including both completed and the following next steps that you need to perfrom. For multi-step, complex tasks, first break them down into smaller steps yourself. Then, issue each step individually to the recipient agent via the message parameter. Each identified step should be sent in separate message.",
+                                "title": "Instructions",
+                                "type": "string"
+                            },
+                            "recipient": {
+                                "allOf": [
+                                    {
+                                        "$ref": "#/$defs/recipient"
+                                    }
+                                ],
+                                "description": "Research Agent: Responsible for conducting in-depth research to support blog development.\n"
+                            },
+                            "message": {
+                                "description": "Specify the task required for the recipient agent to complete. Focus on clarifying what the task entails, rather than providing exact instructions.",
+                                "title": "Message",
+                                "type": "string"
+                            },
+                            "message_files": {
+                                "default": null,
+                                "description": "A list of file ids to be sent as attachments to this message. Only use this if you have the file id that starts with 'file-'.",
+                                "examples": [
+                                    "file-1234",
+                                    "file-5678"
+                                ],
+                                "items": {
+                                    "type": "string"
+                                },
+                                "title": "Message Files",
+                                "type": "array"
+                            }
+                        },
+                        "required": [
+                            "instructions",
+                            "message",
+                            "recipient"
+                        ],
+                        "type": "object"
+                    }
+                },
+                "type": "function"
+            }
+        ]
+    },
+    {
+        "id": "asst_HhDlucHKNRQWWoRcZ9mHGYoO",
+        "created_at": 1706992651,
+        "description": "Responsible for creating drafts for all writing tasks",
+        "file_ids": [],
+        "instructions": "# \"VRSEN AI\" Agency Manifesto\n\nYou are a part of a virtual AI development agency called \"VRSEN AI\"\n\nYour mission is to empower businesses to navigate the AI revolution successfully.\n\n### Instructions for Blogger Agent\n\nAs a World-Class Blogger, you are at the forefront of digital storytelling, weaving together narratives that captivate and engage a global audience. Your role goes beyond mere content creation; it involves crafting impactful, insightful, and resonant articles that set the tone for discussions in your field. Implement these sophisticated guidelines to enhance your blogging prowess:\n\n#### 1. Topic Selection and Research\n   - **Trend Analysis**: Constantly scan the digital landscape for emerging trends, conversations, and debates within your niche. Select topics that not only resonate with your audience but also add a fresh perspective to ongoing dialogues.\n   \n   - **In-depth Research**: For each chosen topic, conduct thorough research to gather a wide array of facts, statistics, and viewpoints. This foundational knowledge will lend credibility and depth to your posts, setting them apart in a sea of superficial content.\n\n#### 2. Content Creation and Engagement\n   - **Authentic Voice**: Cultivate a unique voice that is both authentic and reflective of your personal brand. Your writing should connect with readers on a personal level, making complex ideas accessible and engaging.\n   \n   - **Engaging Storytelling**: Utilize compelling storytelling techniques to draw readers in. Structure your posts with a clear beginning, middle, and end, and use anecdotes, quotes, and questions to make your content more relatable and thought-provoking.\n   \n   - **Visual and Interactive Elements**: Enhance your blog posts with relevant images, infographics, and multimedia elements. Consider incorporating interactive components like polls, quizzes, or videos to increase engagement and time spent on your site.\n\n#### 3. Optimization and Distribution\n   - **SEO Best Practices**: Apply SEO strategies to ensure your content ranks well on search engine results pages. This includes keyword optimization, meta descriptions, and optimizing for mobile users.\n   \n   - **Social Media Amplification**: Leverage social media platforms to promote your posts and engage with your audience. Tailor your approach to fit the unique culture and audience of each platform, encouraging sharing and discussion.\n\n#### 4. Feedback and Continuous Improvement\n   - **Analyzing Engagement**: Regularly monitor the performance of your blog posts, using analytics to understand reader behaviors, preferences, and engagement patterns. Use this data to refine your content strategy and topic selection.\n   \n   - **Community Interaction**: Actively engage with your readers through comments, social media, and email. This not only builds a loyal community but also provides valuable feedback and ideas for future content.\n\n#### 5. Professional Development and Networking\n   - **Continuous Learning**: Stay abreast of blogging trends, digital marketing strategies, and technological advancements that can enhance your blogging. Attend workshops, webinars, and conferences to refine your skills and knowledge.\n   \n   - **Networking**: Build relationships with other bloggers, influencers, and professionals in your field. Collaborative projects, guest blogging, and social interactions can open new avenues for growth and exposure.\n\nYour role as a World-Class Blogger is critical in shaping the digital narrative and influencing the conversation in your niche. By following these advanced guidelines, you will not only elevate your blogging to new heights but also solidify your position as a thought leader and influencer in the digital realm.\n",
+        "metadata": {},
+        "model": "gpt-4-1106-preview",
+        "name": "Blogger",
+        "object": "assistant",
+        "tools": [
+            {
+                "function": {
+                    "name": "SendMessage",
+                    "description": "Use this tool for synchronous communication with other agents within your agency. For ongoing dialogue, resend messages to specific agents. Communication is synchronous, without post-response tasks. Relay agent responses to the user, who lacks direct access. Continue using the tool for continuous interaction until task completion.",
+                    "parameters": {
+                        "$defs": {
+                            "recipient": {
+                                "enum": [
+                                    "Virtual Assistant",
+                                    "Editor"
+                                ],
+                                "title": "recipient",
+                                "type": "string"
+                            }
+                        },
+                        "properties": {
+                            "instructions": {
+                                "description": "Please repeat your instructions step-by-step, including both completed and the following next steps that you need to perfrom. For multi-step, complex tasks, first break them down into smaller steps yourself. Then, issue each step individually to the recipient agent via the message parameter. Each identified step should be sent in separate message.",
+                                "title": "Instructions",
+                                "type": "string"
+                            },
+                            "recipient": {
+                                "allOf": [
+                                    {
+                                        "$ref": "#/$defs/recipient"
+                                    }
+                                ],
+                                "description": "Virtual Assistant: Responsible for doing research and writing proposals.\nEditor: Responsible for editing and approving all writing assignments.\n"
+                            },
+                            "message": {
+                                "description": "Specify the task required for the recipient agent to complete. Focus on clarifying what the task entails, rather than providing exact instructions.",
+                                "title": "Message",
+                                "type": "string"
+                            },
+                            "message_files": {
+                                "default": null,
+                                "description": "A list of file ids to be sent as attachments to this message. Only use this if you have the file id that starts with 'file-'.",
+                                "examples": [
+                                    "file-1234",
+                                    "file-5678"
+                                ],
+                                "items": {
+                                    "type": "string"
+                                },
+                                "title": "Message Files",
+                                "type": "array"
+                            }
+                        },
+                        "required": [
+                            "instructions",
+                            "message",
+                            "recipient"
+                        ],
+                        "type": "object"
+                    }
+                },
+                "type": "function"
+            }
+        ]
+    },
+    {
+        "id": "asst_5BNhDxO7iJ2PXcsdqvSndHiQ",
+        "created_at": 1707010917,
+        "description": null,
+        "file_ids": [],
+        "instructions": "./manifesto.md\n\n./instructions.md",
+        "metadata": {},
+        "model": "gpt-4-1106-preview",
+        "name": "GenesisCEO",
+        "object": "assistant",
+        "tools": [
+            {
+                "function": {
+                    "name": "CreateAgencyFolder",
+                    "description": "This tool creates an agency folder.",
+                    "parameters": {
+                        "properties": {
+                            "agency_name": {
+                                "description": "Name of the agency to be created.",
+                                "examples": [
+                                    "AgencyName"
+                                ],
+                                "title": "Agency Name",
+                                "type": "string"
+                            },
+                            "agency_chart": {
+                                "description": "Agency chart to be passed into the Agency class.",
+                                "examples": [
+                                    "[ceo, [ceo, dev], [ceo, va], [dev, va] ]"
+                                ],
+                                "title": "Agency Chart",
+                                "type": "string"
+                            },
+                            "manifesto": {
+                                "description": "Manifesto for the agency, describing it's goals and additional context shared by all agents in markdown format.",
+                                "title": "Manifesto",
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "agency_chart",
+                            "agency_name",
+                            "manifesto"
+                        ],
+                        "type": "object"
+                    }
+                },
+                "type": "function"
+            },
+            {
+                "function": {
+                    "name": "FinalizeAgency",
+                    "description": "This tool finalizes the agency structure and it's imports. Please make sure to use at only at the very end, after all agents have been created.",
+                    "parameters": {
+                        "properties": {},
+                        "type": "object",
+                        "required": []
+                    }
+                },
+                "type": "function"
+            },
+            {
+                "function": {
+                    "name": "SendMessage",
+                    "description": "Use this tool to facilitate direct, synchronous communication between specialized agents within your agency. When you send a message using this tool, you receive a response exclusively from the designated recipient agent. To continue the dialogue, invoke this tool again with the desired recipient and your follow-up message. Remember, communication here is synchronous; the recipient agent won't perform any tasks post-response. You are responsible for relaying the recipient agent's responses back to the user, as they do not have direct access to these replies. Keep engaging with the tool for continuous interaction until the task is fully resolved.",
+                    "parameters": {
+                        "$defs": {
+                            "recipient": {
+                                "const": "AgentCreator",
+                                "title": "recipient"
+                            }
+                        },
+                        "properties": {
+                            "instructions": {
+                                "description": "Please repeat your instructions step-by-step, including both completed and the following next steps that you need to perfrom. For multi-step complex tasks, first break them down into smaller steps yourself. Then, issue each step individually to the recipient agent via the message parameter.",
+                                "title": "Instructions",
+                                "type": "string"
+                            },
+                            "recipient": {
+                                "allOf": [
+                                    {
+                                        "$ref": "#/$defs/recipient"
+                                    }
+                                ],
+                                "description": ""
+                            },
+                            "message": {
+                                "description": "Specify the task required for the recipient agent to complete. Focus on clarifying what the task entails, rather than providing exact instructions.",
+                                "title": "Message",
+                                "type": "string"
+                            },
+                            "message_files": {
+                                "default": null,
+                                "description": "A list of file ids to be sent as attachments to the message. Only use this if you have the file id that starts with 'file-'.",
+                                "examples": [
+                                    "file-1234",
+                                    "file-5678"
+                                ],
+                                "items": {
+                                    "type": "string"
+                                },
+                                "title": "Message Files",
+                                "type": "array"
+                            }
+                        },
+                        "required": [
+                            "instructions",
+                            "message",
+                            "recipient"
+                        ],
+                        "type": "object"
+                    }
+                },
+                "type": "function"
+            }
+        ]
+    },
+    {
+        "id": "asst_WKqcWin2N3tgOQ4063PTo2Jf",
+        "created_at": 1707010917,
+        "description": null,
+        "file_ids": [],
+        "instructions": "./manifesto.md\n\n./instructions.md",
+        "metadata": {},
+        "model": "gpt-4-1106-preview",
+        "name": "AgentCreator",
+        "object": "assistant",
+        "tools": [
+            {
+                "function": {
+                    "name": "CreateAgentTemplate",
+                    "description": "This tool creates a template folder for a new agent that includes boilerplage code and instructions.",
+                    "parameters": {
+                        "properties": {
+                            "agent_name": {
+                                "description": "Name of the agent to be created. Cannot include special characters or spaces.",
+                                "title": "Agent Name",
+                                "type": "string"
+                            },
+                            "agent_description": {
+                                "description": "Description of the agent to be created.",
+                                "title": "Agent Description",
+                                "type": "string"
+                            },
+                            "instructions": {
+                                "description": "Instructions for the agent to be created in markdown format.",
+                                "title": "Instructions",
+                                "type": "string"
+                            },
+                            "default_tools": {
+                                "default": [],
+                                "description": "List of default tools to be included in the agent. Possible values are ['CodeInterpreter'].CodeInterpreter allows the agent to execute python code in a remote python environment.",
+                                "example": [
+                                    "CodeInterpreter"
+                                ],
+                                "items": {
+                                    "type": "string"
+                                },
+                                "title": "Default Tools",
+                                "type": "array"
+                            }
+                        },
+                        "required": [
+                            "agent_description",
+                            "agent_name",
+                            "instructions"
+                        ],
+                        "type": "object"
+                    }
+                },
+                "type": "function"
+            },
+            {
+                "function": {
+                    "name": "GetAvailableAgents",
+                    "description": "This tool gets the list of pre-made available agents in the framework.",
+                    "parameters": {
+                        "properties": {},
+                        "type": "object",
+                        "required": []
+                    }
+                },
+                "type": "function"
+            },
+            {
+                "function": {
+                    "name": "ReadFile",
+                    "description": "This tool reads a file and returns the contents along with line numbers on the left.",
+                    "parameters": {
+                        "properties": {
+                            "file_path": {
+                                "description": "Path to the file to read with extension.",
+                                "examples": [
+                                    "./file.txt",
+                                    "./file.json",
+                                    "../../file.py"
+                                ],
+                                "title": "File Path",
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "file_path"
+                        ],
+                        "type": "object"
+                    }
+                },
+                "type": "function"
+            },
+            {
+                "function": {
+                    "name": "ImportAgent",
+                    "description": "This tool imports an existing agent from agency swarm framework. Please make sure to first use the GetAvailableAgents tool to get the list of available agents.",
+                    "parameters": {
+                        "properties": {
+                            "agent_name": {
+                                "description": "Name of the agent to be imported.",
+                                "title": "Agent Name",
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "agent_name"
+                        ],
+                        "type": "object"
+                    }
+                },
+                "type": "function"
+            },
+            {
+                "function": {
+                    "name": "SendMessage",
+                    "description": "Use this tool to facilitate direct, synchronous communication between specialized agents within your agency. When you send a message using this tool, you receive a response exclusively from the designated recipient agent. To continue the dialogue, invoke this tool again with the desired recipient and your follow-up message. Remember, communication here is synchronous; the recipient agent won't perform any tasks post-response. You are responsible for relaying the recipient agent's responses back to the user, as they do not have direct access to these replies. Keep engaging with the tool for continuous interaction until the task is fully resolved.",
+                    "parameters": {
+                        "$defs": {
+                            "recipient": {
+                                "enum": [
+                                    "BrowsingAgent",
+                                    "OpenAPICreator"
+                                ],
+                                "title": "recipient",
+                                "type": "string"
+                            }
+                        },
+                        "properties": {
+                            "instructions": {
+                                "description": "Please repeat your instructions step-by-step, including both completed and the following next steps that you need to perfrom. For multi-step complex tasks, first break them down into smaller steps yourself. Then, issue each step individually to the recipient agent via the message parameter.",
+                                "title": "Instructions",
+                                "type": "string"
+                            },
+                            "recipient": {
+                                "allOf": [
+                                    {
+                                        "$ref": "#/$defs/recipient"
+                                    }
+                                ],
+                                "description": "BrowsingAgent: This agent is equipped with specialized tools to navigate and search the web effectively.\n"
+                            },
+                            "message": {
+                                "description": "Specify the task required for the recipient agent to complete. Focus on clarifying what the task entails, rather than providing exact instructions.",
+                                "title": "Message",
+                                "type": "string"
+                            },
+                            "message_files": {
+                                "default": null,
+                                "description": "A list of file ids to be sent as attachments to the message. Only use this if you have the file id that starts with 'file-'.",
+                                "examples": [
+                                    "file-1234",
+                                    "file-5678"
+                                ],
+                                "items": {
+                                    "type": "string"
+                                },
+                                "title": "Message Files",
+                                "type": "array"
+                            }
+                        },
+                        "required": [
+                            "instructions",
+                            "message",
+                            "recipient"
+                        ],
+                        "type": "object"
+                    }
+                },
+                "type": "function"
+            }
+        ]
+    },
+    {
+        "id": "asst_oRv4xtOFl9UgCD2N54uGbvQh",
+        "created_at": 1707010918,
+        "description": "This agent is equipped with specialized tools to navigate and search the web effectively.",
+        "file_ids": [],
+        "instructions": "./manifesto.md\n\nYou are an advanced browsing agent equipped with specialized tools to navigate and search the web effectively. Your primary objective is to fulfill the user's requests by efficiently utilizing these tools. When encountering uncertainty about the location of specific information on a website, employ the 'AnalyzeContent' tool. Remember, you can only open and interact with 1 web page at a time. Do not try to read or click on multiple links. Finish allaying your current web page first, before proceeding to a different source. Don't try to guess the direct url, always perform a google search if applicable, or return to your previous search results. In case if you need to analyze the full web page, use the 'ExportFile' tool to add it to myfiles_browser for further analysis.\n\n# BrowsingAgent's Primary instructions\n1. Browse the web to find the most relevant API that the requested agent needs in order to perform its role. If you already have an idea of what API to use, search google directly for this API documentation.\n2. After finding the right API to use, navigate to its documentation page. Prefer to do this by searching for the API documentation page in google, rather than navigating to the API's website and then finding the documentation page, if possible.\n3. Ensure that the current page actually contains the necessary API endpoints descriptions with the AnalyzeContent tool. If you can't find a link to the documentation page, try to search for it in google.\n4. If you have confirmed that the page contains the necessary API documentation, export the page with ExportFile tool and send the file_id back to the user along with a brief description of the API.\n5. If not, continue browsing the web until you find the right API documentation page.\n6. Repeat these steps for each new requested agent.\n",
+        "metadata": {},
+        "model": "gpt-4-1106-preview",
+        "name": "BrowsingAgent",
+        "object": "assistant",
+        "tools": [
+            {
+                "function": {
+                    "name": "Scroll",
+                    "description": "This tool allows you to scroll the current web page up or down by 1 screen height.",
+                    "parameters": {
+                        "properties": {
+                            "direction": {
+                                "description": "Direction to scroll.",
+                                "enum": [
+                                    "up",
+                                    "down"
+                                ],
+                                "title": "Direction",
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "direction"
+                        ],
+                        "type": "object"
+                    }
+                },
+                "type": "function"
+            },
+            {
+                "function": {
+                    "name": "SendKeys",
+                    "description": "This tool sends keys into input fields on the current webpage based on the description of that element and what needs to be typed. It then clicks \"Enter\" on the last element to submit the form. You do not need to tell it to press \"Enter\"; it will do that automatically.",
+                    "parameters": {
+                        "properties": {
+                            "description": {
+                                "description": "Description of the inputs to send to the web page, clearly stated in natural language.",
+                                "examples": [
+                                    "Type 'hello' into the 'Search' input field.",
+                                    "Type johndoe@gmail.com into the 'Email' input field, and type 'password123' into the 'Password' input field.",
+                                    "Select the second option in the 'Country' dropdown."
+                                ],
+                                "title": "Description",
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "description"
+                        ],
+                        "type": "object"
+                    }
+                },
+                "type": "function"
+            },
+            {
+                "function": {
+                    "name": "ClickElement",
+                    "description": "This tool clicks on an element on the current web page based on element or task description. Do not use this tool for input fields or dropdowns.",
+                    "parameters": {
+                        "properties": {
+                            "description": {
+                                "description": "Description of the element to click on in natural language.",
+                                "example": "Click on the 'Sign Up' button.",
+                                "title": "Description",
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "description"
+                        ],
+                        "type": "object"
+                    }
+                },
+                "type": "function"
+            },
+            {
+                "function": {
+                    "name": "ReadURL",
+                    "description": "This tool reads a single URL and opens it in your current browser window. For each new source, go to a direct URL\nthat you think might contain the answer to the user's question or perform a google search like\n'https://google.com/search?q=search' if applicable. Otherwise, don't try to guess the direct url, use ClickElement tool\nto click on the link that you think might contain the desired information on the current web page.\nRemember, this tool only supports opening 1 URL at a time. Previous URL will be closed when you open a new one.\n    ",
+                    "parameters": {
+                        "properties": {
+                            "url": {
+                                "description": "URL of the webpage.",
+                                "examples": [
+                                    "https://google.com/search?q=search"
+                                ],
+                                "title": "Url",
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "url"
+                        ],
+                        "type": "object"
+                    }
+                },
+                "type": "function"
+            },
+            {
+                "function": {
+                    "name": "AnalyzeContent",
+                    "description": "This tool analyzes the current web browser window content and allows you to ask a question about its contents. Make sure to read\nthe URL first with ReadURL tool or navigate to the right page with ClickElement tool. Do not use this tool to get \ndirect links to other pages. It is not intended to be used for navigation. To analyze the full web page, instead of just the current window, use ExportFile tool.",
+                    "parameters": {
+                        "properties": {
+                            "question": {
+                                "description": "Question to ask about the contents of the current webpage.",
+                                "title": "Question",
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "question"
+                        ],
+                        "type": "object"
+                    }
+                },
+                "type": "function"
+            },
+            {
+                "function": {
+                    "name": "GoBack",
+                    "description": "This tool allows you to go back 1 page in the browser history. Use it in case of a mistake or if a page shows you unexpected content.",
+                    "parameters": {
+                        "properties": {},
+                        "type": "object",
+                        "required": []
+                    }
+                },
+                "type": "function"
+            },
+            {
+                "function": {
+                    "name": "SelectDropdown",
+                    "description": "This tool selects an option in a dropdown on the current web page based on the description of that element and which option to select.",
+                    "parameters": {
+                        "properties": {
+                            "description": {
+                                "description": "Description of which option to select and for which dropdown on the page, clearly stated in natural langauge.",
+                                "examples": [
+                                    "Select Germany option in the 'Country' dropdown."
+                                ],
+                                "title": "Description",
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "description"
+                        ],
+                        "type": "object"
+                    }
+                },
+                "type": "function"
+            },
+            {
+                "function": {
+                    "name": "SolveCaptcha",
+                    "description": "This tool asks a human to solve captcha on the current webpage. Make sure that captcha is visible before running it.",
+                    "parameters": {
+                        "properties": {},
+                        "type": "object",
+                        "required": []
+                    }
+                },
+                "type": "function"
+            },
+            {
+                "function": {
+                    "name": "ExportFile",
+                    "description": "This tool converts the current full web page into a file and returns its file_id. You can then analyze this file using the myfiles_browser tool.",
+                    "parameters": {
+                        "properties": {},
+                        "type": "object",
+                        "required": []
+                    }
+                },
+                "type": "function"
+            },
+            {
+                "type": "retrieval"
+            }
+        ]
+    },
+    {
+        "id": "asst_P4wiA1zMPb8mvF0rgRKt9a8n",
+        "created_at": 1707010918,
+        "description": null,
+        "file_ids": [],
+        "instructions": "./manifesto.md\n\n./instructions.md",
+        "metadata": {},
+        "model": "gpt-4-1106-preview",
+        "name": "OpenAPICreator",
+        "object": "assistant",
+        "tools": [
+            {
+                "type": "retrieval"
+            },
+            {
+                "function": {
+                    "name": "CreateToolsFromOpenAPISpec",
+                    "description": "This tool creates a set of tools from an OpenAPI specification. Each method in the specification is converted to a separate tool.",
+                    "parameters": {
+                        "properties": {
+                            "agent_name": {
+                                "description": "Name of the agent for whom the tools are being created. Cannot include special characters.",
+                                "title": "Agent Name",
+                                "type": "string"
+                            },
+                            "openapi_spec": {
+                                "description": "OpenAPI specification for the tool to be created as a valid JSON string. Only the relevant endpoints must be included. Responses are not required. Each method should contain an operation id and a description. Must be full OpenAPI 3.1.0 specification.",
+                                "examples": [
+                                    "{\n  \"openapi\": \"3.1.0\",\n  \"info\": {\n    \"title\": \"Get weather data\",\n    \"description\": \"Retrieves current weather data for a location.\",\n    \"version\": \"v1.0.0\"\n  },\n  \"servers\": [\n    {\n      \"url\": \"https://weather.example.com\"\n    }\n  ],\n  \"paths\": {\n    \"/location\": {\n      \"get\": {\n        \"description\": \"Get temperature for a specific location\",\n        \"operationId\": \"GetCurrentWeather\",\n        \"parameters\": [\n          {\n            \"name\": \"location\",\n            \"in\": \"query\",\n            \"description\": \"The city and state to retrieve the weather for\",\n            \"required\": true,\n            \"schema\": {\n              \"type\": \"string\"\n            }\n          }\n        ],\n        \"deprecated\": false\n      }\n    }\n  },\n  \"components\": {\n    \"schemas\": {}\n  }\n}"
+                                ],
+                                "title": "Openapi Spec",
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "agent_name",
+                            "openapi_spec"
+                        ],
+                        "type": "object"
+                    }
+                },
+                "type": "function"
+            },
+            {
+                "function": {
+                    "name": "ListDir",
+                    "description": "This tool returns the tree structure of the directory.",
+                    "parameters": {
+                        "properties": {
+                            "dir_path": {
+                                "description": "Path of the directory to read.",
+                                "examples": [
+                                    "./",
+                                    "./test",
+                                    "../../"
+                                ],
+                                "title": "Dir Path",
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "dir_path"
                         ],
                         "type": "object"
                     }
