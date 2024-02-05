@@ -1,0 +1,1 @@
+./Informed Quill/manifesto.md

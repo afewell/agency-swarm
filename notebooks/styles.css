@@ -1,34 +1,58 @@
-/* Basic Reset */
-body, h1, table { margin: 0; padding: 0; }
+/* Importing Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Open+Sans&display=swap');
+/* CSS reset */
+body, h1, nav, ul, li, a, section, footer, p {
+margin: 0;
+padding: 0;
+}
 
-/* Header styles */
+/* Setting default font */
+body {
+font-family: 'Open Sans', sans-serif;
+color: #333;
+line-height: 1.6;
+background: #fdfdfd;
+}
+
 header {
-  background-color: #f1c0e8; /* Soft pink shade */
-  padding: 20px 0;
-  text-align: center;
+background-color: #feefe2;
+text-align: center;
+padding: 1.5em 0;
 }
 
 h1 {
-  font-family: 'Arial', sans-serif;
-  color: #541f4f; /* Deep purple shade */
+font-family: 'Dancing Script', cursive;
+font-size: 2.5em;
+color: #b81d8b;
 }
 
-/* Table styles */
+nav a {
+text-decoration: none;
+color: #333;
+}
+
+nav a:hover {
+color: #b81d8b;
+text-decoration: underline;
+}
+
+footer {
+background-color: #feefe2;
+text-align: center;
+padding: 1em 0;
+}
+
 table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 20px;
+width: 100%;
+border-collapse: collapse;
+margin: 25px 0;
+font-size: 0.9em;
+font-family: 'Open Sans', sans-serif;
+min-width: 400px;
+box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+cursor: pointer;
 }
-
-th, td {
-  text-align: left;
-  padding: 8px;
-  border-bottom: 1px solid #ddd;
+th:hover {
+background-color: #f3e9e9;
+transition: background-color 0.3s;
 }
-
-th {
-  background-color: #f2e2f3;
-  color: #541f4f;
-}
-
-/* Add more styles as needed */
